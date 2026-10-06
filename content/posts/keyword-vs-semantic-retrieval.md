@@ -22,14 +22,14 @@ To compare both approaches, I used the same dataset of 7,372 anime quotes and ra
 
 ## Searching with Fuse.js 
 
-```javascript 
+` 
 const fuse = new Fuse(quotes, {
     keys: ["quote"],
     includeScore: true,
     threshold: 0.4
 });
 const results = fuse.search(query);
-```
+`
 
 ![Fuse.js keyword search result](/images/fusejs-semantic-search-result.png)
 

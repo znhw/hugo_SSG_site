@@ -203,9 +203,15 @@ The Boundary: Vector Search is a Mirror At their core, transformer-based Large L
 <p>At their core, transformer-based Large Language Models aren&rsquo;t just text generators. Their fundamental power lies in <strong>context processing and pattern recognition:</strong> analyzing relationships, organizing unstructured information, and evaluating constraints across high-dimensional token representations.
 When developers build with LLMs, the default pattern is almost always text generation. But when building a retrieval-backed app (like an anime quote finder), generation introduces severe tradeoffs:</p>
 <ul>
-<li><strong>Hallucination</strong>: An LLM prompted to &ldquo;write a comforting anime quote&rdquo; might invent a line that no character ever actually said.</li>
-<li><strong>Loss of Authenticity</strong>: Fans expect canonical quotes from real series, not synthetic approximations.</li>
-<li><strong>Cost &amp; Latency</strong>: Generating 50–100 tokens of creative text takes far more time and compute than classifying existing strings.</li>
+<li>
+<p><strong>Hallucination</strong>: An LLM prompted to &ldquo;write a comforting anime quote&rdquo; might invent a line that no character ever actually said.</p>
+</li>
+<li>
+<p><strong>Loss of Authenticity</strong>: Fans expect canonical quotes from real series, not synthetic approximations.</p>
+</li>
+<li>
+<p><strong>Cost &amp; Latency</strong>: Generating 50–100 tokens of creative text takes far more time and compute than classifying existing strings.</p>
+</li>
 </ul>
 <p>On the other hand, relying strictly on <strong>Vector Retrieval</strong> avoids hallucination, but acts like a passive mirror. When a user inputs something dejecting, vector distance math dutifully pairs that query with the closest vectors in high-dimensional space, often creating an emotional echo chamber.</p>
 <p>To solve this, we don&rsquo;t use the LLM to generate new quotes. We use its analytical capability as an <strong>“Judge”</strong> to evaluate a candidate set retrieved by our vector database.</p>
@@ -268,16 +274,51 @@ At 0.840, Kirino’s quote is the mathematical winner. Why? Because it literally
 <p>Why the Judge Skipped Candidate #1 for Candidate #4
 The LLM Judge bypassed Candidate #1 (distance 0.840) and selected Candidate #4 (distance 0.956 / 0.970).</p>
 <ul>
-<li>Candidate #1 (Kirino): While reassuring, it introduces a dramatic, codependent framing (&ldquo;even if everyone else abandons you&rdquo;).</li>
-<li>Candidate #4 (Maria): It directly addresses despair with a grounded, stoic, and universally comforting philosophy—that routine, daily life provides a natural path forward out of hopelessness.
-The LLM didn&rsquo;t invent text or hallucinate anime lore. It performed contextual evaluation over pre-retrieved candidates, picking an answer that vector distance alone was too blunt to identify.</li>
+<li>
+<p>Candidate #1 (Kirino): While reassuring, it introduces a dramatic, codependent framing (&ldquo;even if everyone else abandons you&rdquo;).</p>
+</li>
+<li>
+<p>Candidate #4 (Maria): It directly addresses despair with a grounded, stoic, and universally comforting philosophy—that routine, daily life provides a natural path forward out of hopelessness.
+The LLM didn&rsquo;t invent text or hallucinate anime lore. It performed contextual evaluation over pre-retrieved candidates, picking an answer that vector distance alone was too blunt to identify.</p>
+</li>
 </ul>
 <h3 id="comparing-the-approaches">Comparing the Approaches</h3>
-<p>System Layer	Primary Mechanism	Best Use Case	Primary Limitation
-Keyword Search (Fuse.js)	Lexical character matching	Exact names, titles, typo tolerance	Fails on abstract ideas
-Semantic Search (MiniLM)	High-dimensional vector distance	Recall (narrowing 7k+ items to 10 in &lt;10ms)	Blind to emotional nuance &amp; appropriateness
-LLM-as-a-Generator	Unconstrained token prediction	Creative writing, open chit-chat	High hallucination risk, non-canonical output
-Vector Search + LLM Judge	Candidate retrieval + Context analysis	High-fidelity database retrieval with reasoning	Adds minor API evaluation latency (~150ms)</p>
+<table>
+  <thead>
+      <tr>
+          <th><strong>System Layer</strong></th>
+          <th><strong>Primary Mechanism</strong></th>
+          <th><strong>Best Use Case</strong></th>
+          <th><strong>Primary Limitation</strong></th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>Keyword Search (Fuse.js)</strong></td>
+          <td>Lexical character matching</td>
+          <td>Exact names, titles, typo tolerance</td>
+          <td>Fails on abstract ideas</td>
+      </tr>
+      <tr>
+          <td><strong>Semantic Search (MiniLM)</strong></td>
+          <td>High-dimensional vector distance</td>
+          <td>Recall (narrowing 7k+ items to 10 in &lt;10ms)</td>
+          <td>Blind to emotional nuance &amp; appropriateness</td>
+      </tr>
+      <tr>
+          <td><strong>LLM-as-a-Generator</strong></td>
+          <td>Unconstrained token prediction</td>
+          <td>Creative writing, open chit-chat</td>
+          <td>High hallucination risk, non-canonical output</td>
+      </tr>
+      <tr>
+          <td><strong>Vector Search + LLM Judge</strong></td>
+          <td>Candidate retrieval + context analysis</td>
+          <td>High-fidelity database retrieval with reasoning</td>
+          <td>Adds minor API evaluation latency (~150ms)</td>
+      </tr>
+  </tbody>
+</table>
 <h2 id="conclusion">Conclusion</h2>
 <p>Ultimately, viewing LLMs merely as text generators drastically understates their utility. The most durable business application of language models isn&rsquo;t having them draft prose, it is using them as context-aware reasoning engines. Whether acting as automated judges, structured parsers, or dynamic workflow routers, LLMs deliver their highest ROI when operating as the analytical brain behind structured, deterministic software systems.</p>
 

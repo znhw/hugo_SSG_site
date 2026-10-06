@@ -359,3 +359,35 @@ nav ul li {
 }
 
 
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  border: 1px solid currentColor;
+  padding: 0.75rem;
+  text-align: left;
+}
+
+th {
+  font-weight: 700;
+}
+
+/* Inline code only */
+:not(pre) > code {
+  display: inline-block;
+  max-width: 100%;
+
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  font-size: 0.9em;
+
+  padding: 0.2em 0.4em;
+  border-radius: 4px;
+  background: #eeeeee;
+  color: #424242;
+
+  white-space: normal;
+  overflow-wrap: anywhere;
+}

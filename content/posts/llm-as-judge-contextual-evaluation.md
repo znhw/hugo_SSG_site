@@ -18,7 +18,9 @@ At their core, transformer-based Large Language Models aren't just text generato
 When developers build with LLMs, the default pattern is almost always text generation. But when building a retrieval-backed app (like an anime quote finder), generation introduces severe tradeoffs:
 
 - **Hallucination**: An LLM prompted to "write a comforting anime quote" might invent a line that no character ever actually said.
+
 - **Loss of Authenticity**: Fans expect canonical quotes from real series, not synthetic approximations.
+
 - **Cost & Latency**: Generating 50–100 tokens of creative text takes far more time and compute than classifying existing strings.
 
 On the other hand, relying strictly on **Vector Retrieval** avoids hallucination, but acts like a passive mirror. When a user inputs something dejecting, vector distance math dutifully pairs that query with the closest vectors in high-dimensional space, often creating an emotional echo chamber.
@@ -95,15 +97,17 @@ Here is the raw output returned by the LLM Judge:
 Why the Judge Skipped Candidate #1 for Candidate #4
 The LLM Judge bypassed Candidate #1 (distance 0.840) and selected Candidate #4 (distance 0.956 / 0.970).
 * Candidate #1 (Kirino): While reassuring, it introduces a dramatic, codependent framing ("even if everyone else abandons you").
+
 * Candidate #4 (Maria): It directly addresses despair with a grounded, stoic, and universally comforting philosophy—that routine, daily life provides a natural path forward out of hopelessness.
 The LLM didn't invent text or hallucinate anime lore. It performed contextual evaluation over pre-retrieved candidates, picking an answer that vector distance alone was too blunt to identify.
 
 ### Comparing the Approaches
-System Layer	Primary Mechanism	Best Use Case	Primary Limitation
-Keyword Search (Fuse.js)	Lexical character matching	Exact names, titles, typo tolerance	Fails on abstract ideas
-Semantic Search (MiniLM)	High-dimensional vector distance	Recall (narrowing 7k+ items to 10 in <10ms)	Blind to emotional nuance & appropriateness
-LLM-as-a-Generator	Unconstrained token prediction	Creative writing, open chit-chat	High hallucination risk, non-canonical output
-Vector Search + LLM Judge	Candidate retrieval + Context analysis	High-fidelity database retrieval with reasoning	Adds minor API evaluation latency (~150ms)
+| **System Layer** | **Primary Mechanism** | **Best Use Case** | **Primary Limitation** |
+| --- | --- | --- | --- |
+| **Keyword Search (Fuse.js)** | Lexical character matching | Exact names, titles, typo tolerance | Fails on abstract ideas |
+| **Semantic Search (MiniLM)** | High-dimensional vector distance | Recall (narrowing 7k+ items to 10 in <10ms) | Blind to emotional nuance & appropriateness |
+| **LLM-as-a-Generator** | Unconstrained token prediction | Creative writing, open chit-chat | High hallucination risk, non-canonical output |
+| **Vector Search + LLM Judge** | Candidate retrieval + context analysis | High-fidelity database retrieval with reasoning | Adds minor API evaluation latency (~150ms) |
 
 ## Conclusion
 
